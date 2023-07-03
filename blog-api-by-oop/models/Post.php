@@ -88,4 +88,57 @@ class Post{
             return false;
         }
     }
+
+    /* Update Post Here */
+
+    public function update()
+    {
+        $sql = "UPDATE $this->table SET title = :title,body = :body, author = :author, category_id = :category_id WHERE id = :id";
+
+        $stmt = $this->conn->prepare($sql);
+
+        /* Input Data Validation Here */
+        $this->title = htmlspecialchars(strip_tags($this->title));
+        $this->body = htmlspecialchars(strip_tags($this->body));
+        $this->author = htmlspecialchars(strip_tags($this->author));
+        $this->category_id = htmlspecialchars(strip_tags($this->category_id));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+        /* Bind Param Here */
+        $stmt->bindParam(':title',$this->title);
+        $stmt->bindParam(':body',$this->body);
+        $stmt->bindParam(':author',$this->author);
+        $stmt->bindParam(':category_id',$this->category_id);
+        $stmt->bindParam(':id',$this->id);
+
+        if($stmt->execute()){
+            return true;
+        }else{
+            printf("Error: %s \n $stmt->error");
+            return false;
+        }
+    }
+
+    /* Delete Data Here */
+
+    public function delete()
+    {
+        $sql = "DELETE FROM $this->table WHERE id= :id";
+
+        $stmt = $this->conn->prepare($sql);
+
+        /* Data Validation */
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+        $stmt->bindParam(':id',$this->id);
+
+        /* Execute the Prepare Statement */
+        if($stmt->execute()){
+            return true;
+        }else{
+            printf("Error: %s /n $stmt->error");
+            return true;
+        }
+
+    }
 }
