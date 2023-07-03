@@ -69,8 +69,8 @@ class Post{
         $stmt = $this->conn->prepare($sql);
 
         $this->title = htmlspecialchars(strip_tags($this->title));
-        $this->body = htmlspecialchars($this->body);
-        $this->author = htmlspecialchars($this->author);
+        $this->body = htmlspecialchars(strip_tags($this->body));
+        $this->author = htmlspecialchars(strip_tags($this->author));
         $this->category_id = htmlspecialchars(strip_tags($this->category_id));
 
         /* Bind Data */
@@ -84,10 +84,8 @@ class Post{
             return true;
             
         }else{
-
             printf("Error: %s. \n",$stmt->error);
             return false;
-
         }
     }
 }

@@ -20,7 +20,7 @@ if($rowCount > 0){
 
     /*  Posts array */
     $post_arr = array();
-    $post_arr['data'] = array();
+    // $post_arr['data'] = array(); 
     while($row = $allPosts->fetch(PDO::FETCH_ASSOC)){
         extract($row);
 
